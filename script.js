@@ -27,7 +27,7 @@ function sendFormData(formId) {
       url: "ajax.php",
       data: $('#' + formId).serialize()
    }).done(function(msg) {
-      alert("Data Saved: " + msg);
+      // handleResponse(msg);
    });
 }
 
