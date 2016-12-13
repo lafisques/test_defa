@@ -15,7 +15,7 @@ class Validator
 	 */
 	public function validateNotEmpty(string $value) 
 	{
-
+		return true;
 	}
 
 	/**
@@ -24,7 +24,7 @@ class Validator
 	 */
 	public function validateEmail(string $value)
 	{
-
+		return true;
 	}
 	
 	/**
@@ -33,7 +33,7 @@ class Validator
 	 */
 	public function validatePhone(string $value)
 	{
-
+		return true;
 	}
 }
 
@@ -53,7 +53,19 @@ class FormRequest
 	public function validate()
 	{
 		$valide = true;
-		if($this->)
+		//if($this->_validator->)
+	}
+
+	/**
+	 * @param array $data
+	 * @return null
+	 */
+	public function setData($data)
+	{
+		$this->_name = $data["name"];
+		$this->_phone = $data["phone"];
+		$this->_email = $data["email"];
+		$this->_comment = $data["comment"];
 	}
 
 	public function getName() { return $this->_name; }
@@ -72,9 +84,17 @@ switch ($_REQUEST['mode']) {
 	case 'send':
 		/**
 		 * Request validation
-		 * Вообще валидацию я бы инкапсулировал
+		 * 
 		 */
+		$formRequest->setData($_REQUEST);
+		if($formRequest->valide()) {
+			$message = $formRequest->getName() . "\n" .
+				$formRequest->getEmail() . "\n" .
+				$formRequest->getPhone() . "\n" .
+				$formRequest->getComment();
 
+			mail("test@test.ru", "Message", $message);
+		}
 		break;
 	default:
 		break;
